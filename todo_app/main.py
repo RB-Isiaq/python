@@ -7,6 +7,9 @@ user_prompt = "Enter a todo: "  # type str
 # print(todos)  # type Function
 
 # print(type(todos), type(user_prompt))
+
+# ---------------------
+
 # todos = []
 # while True:
 #     todo = input(user_prompt)
@@ -15,39 +18,57 @@ user_prompt = "Enter a todo: "  # type str
 #     todos.append(capitalized)
 #     print(todos)
 
+# ---------------------
+
 # password = input("Enter your password: ")
 # while password != "12345":
 #     password = input("Enter your password: ")
 
 # print("Password is correct")
 
+# ---------------------
+
 # x = 0
 # while x <= 6:
 #     print(x + 1)
 #     x += 1
 
-todos = []
+# ---------------------
 
-while True:
-    user_action = input("Enter add, view, edit or exit: ").strip().lower()
+# todos = []
 
-    match user_action:
-        case "add":
-            todo = input("Enter a todo: ")
-            todos.append(todo)
-        case "view" | "display":  # Bitwise OR operator |
-            for todo in todos:
-                print(todo)
-        case "edit":
-            for todo in todos:
-                print(todos.index(todo) + 1, todo)
-            todo_index = int(input("Enter todo index: ")) - 1
-            edit_todo = todos[todo_index]
-            if edit_todo:
-                edited_todo = input(f"Update this todo - {edit_todo}: ")
-                todos[todo_index] = edited_todo
-        case "exit":
-            break
-        case _:  # execute this line when none of the case is matched
-            print("You entered a wrong command")
-print("Bye :)")
+# while True:
+#     user_action = input("Enter add, view, edit or exit: ").strip().lower()
+
+#     match user_action:
+#         case "add":
+#             todo = input("Enter a todo: ")
+#             todos.append(todo)
+#         case "view" | "display":  # Bitwise OR operator |
+#             for todo in todos:
+#                 print(todo)
+#         case "edit":
+#             for todo in todos:
+#                 print(todos.index(todo) + 1, todo)
+#             todo_index = int(input("Enter todo index: ")) - 1
+#             edit_todo = todos[todo_index]
+#             if edit_todo:
+#                 edited_todo = input(f"Update this todo - {edit_todo}: ")
+#                 todos[todo_index] = edited_todo
+#         case "exit":
+#             break
+#         case _:  # execute this line when none of the case is matched
+#             print("You entered a wrong command")
+# print("Bye :)")
+
+# ---------------------
+
+filenames = (
+    "1.first.txt",
+    "2.second.txt",
+    "3.third.txt",
+)  # tuple are immutable, while list are mutable
+
+for filename in filenames:
+    filename = filename.replace(".", "-", 1)
+    print(filename)
