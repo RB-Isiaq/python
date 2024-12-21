@@ -29,7 +29,7 @@ user_prompt = "Enter a todo: "  # type str
 todos = []
 
 while True:
-    user_action = input("Enter add, view or exit: ").strip().lower()
+    user_action = input("Enter add, view, edit or exit: ").strip().lower()
 
     match user_action:
         case "add":
@@ -38,6 +38,14 @@ while True:
         case "view" | "display":  # Bitwise OR operator |
             for todo in todos:
                 print(todo)
+        case "edit":
+            for todo in todos:
+                print(todos.index(todo) + 1, todo)
+            todo_index = int(input("Enter todo index: ")) - 1
+            edit_todo = todos[todo_index]
+            if edit_todo:
+                edited_todo = input(f"Update this todo - {edit_todo}: ")
+                todos[todo_index] = edited_todo
         case "exit":
             break
         case _:  # execute this line when none of the case is matched
