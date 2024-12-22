@@ -72,3 +72,10 @@ filenames = (
 for filename in filenames:
     filename = filename.replace(".", "-", 1)
     print(filename)
+
+
+def greet(name):
+    print(f"Hello world, my name is {name}")
+
+
+greet("Ridwan")
