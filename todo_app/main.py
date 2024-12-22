@@ -35,43 +35,34 @@ user_prompt = "Enter a todo: "  # type str
 
 # ---------------------
 
-# todos = []
+todos = []
 
-# while True:
-#     user_action = input("Enter add, view, edit or exit: ").strip().lower()
+while True:
+    user_action = input("Enter add, view, edit or exit: ").strip().lower()
 
-#     match user_action:
-#         case "add":
-#             todo = input("Enter a todo: ")
-#             todos.append(todo)
-#         case "view" | "display":  # Bitwise OR operator |
-#             for todo in todos:
-#                 print(todo)
-#         case "edit":
-#             for todo in todos:
-#                 print(todos.index(todo) + 1, todo)
-#             todo_index = int(input("Enter todo index: ")) - 1
-#             edit_todo = todos[todo_index]
-#             if edit_todo:
-#                 edited_todo = input(f"Update this todo - {edit_todo}: ")
-#                 todos[todo_index] = edited_todo
-#         case "exit":
-#             break
-#         case _:  # execute this line when none of the case is matched
-#             print("You entered a wrong command")
-# print("Bye :)")
+    match user_action:
+        case "add":
+            todo = input("Enter a todo: ")
+            todos.append(todo)
+        case "view" | "display":  # Bitwise OR operator |
+            for index, todo in enumerate(todos):
+                row = f"{index} - {todo}"
+                print(row)
+        case "edit":
+            for todo in todos:
+                print(todos.index(todo) + 1, todo)
+            todo_index = int(input("Enter todo index: ")) - 1
+            edit_todo = todos[todo_index]
+            if edit_todo:
+                edited_todo = input(f"Update this todo - {edit_todo}: ")
+                todos[todo_index] = edited_todo
+        case "exit":
+            break
+        case _:  # execute this line when none of the case is matched
+            print("You entered a wrong command")
+print("Bye :)")
 
 # ---------------------
-
-# filenames = (
-#     "1.first.txt",
-#     "2.second.txt",
-#     "3.third.txt",
-# )  # tuple are immutable, while list are mutable
-
-# for filename in filenames:
-#     filename = filename.replace(".", "-", 1)
-#     print(filename)
 
 
 def greet(name):
