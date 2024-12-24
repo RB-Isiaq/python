@@ -60,7 +60,10 @@ while True:
             todos = file.readlines()
             file.close()
 
+            # new_todos = [item.strip("\n") for item in todos]  # List comprehension
+
             for index, todo in enumerate(todos):
+                todo = todo.strip("\n")
                 row = f"{index + 1} - {todo}"
                 print(row)
         case "edit":

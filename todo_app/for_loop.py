@@ -1,19 +1,23 @@
 meals = ["rice", "pizza", "beans"]
 
-for meal in meals:
-    for char in meal:
-        print(f"{char.title()} in {meal.capitalize()}")
-        if meal.endswith(char):
-            print()
+################################
 
-print("Done.")
+# for meal in meals:
+#     for char in meal:
+#         print(f"{char.title()} in {meal.capitalize()}")
+#         if meal.endswith(char):
+#             print()
 
-meals.sort()  # sort method doesn't return an output
-meals.sort(reverse=True)  # sort method to reverse in descending order
+# print("Done.")
 
-for i, meal in enumerate(meals):
-    row = f"{i + 1}.{meal.capitalize()}"
-    print(row)
+################################
+
+# meals.sort()  # sort method doesn't return an output
+# meals.sort(reverse=True)  # sort method to reverse in descending order
+
+# for i, meal in enumerate(meals):
+#     row = f"{i + 1}.{meal.capitalize()}"
+#     print(row)
 
 # filenames = (
 #     "1.first.txt",
@@ -25,14 +29,24 @@ for i, meal in enumerate(meals):
 #     filename = filename.replace(".", "-", 1)
 #     print(filename)
 
-contents = [
-    "All carots are to be sliced longitudinally",
-    "The carrots were reportedly sliced",
-    "Carrots are ready to be eaten.",
-]
+################################
 
-filenames = ["doc.txt", "reporter.txt", "presentation.txt"]
+# contents = [
+#     "All carots are to be sliced longitudinally",
+#     "The carrots were reportedly sliced",
+#     "Carrots are ready to be eaten.",
+# ]
 
-for content, filename in zip(contents, filenames):
-    file = open(f"files/{filename}", "w")
-    file.write(content)
+# filenames = ["doc.txt", "reporter.txt", "presentation.txt"]
+
+# for content, filename in zip(contents, filenames):
+#     file = open(f"files/{filename}", "w")
+#     file.write(content)
+
+################################
+
+filenames = ["1.doc", "2.reporter", "3.presentation"]
+
+filenames = [filename.replace(".", "-") + ".txt" for filename in filenames]
+
+print(filenames)
