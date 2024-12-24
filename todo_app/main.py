@@ -35,18 +35,33 @@ user_prompt = "Enter a todo: "  # type str
 
 # ---------------------
 
-todos = []
+# todos = []
 
 while True:
-    user_action = input("Enter add, view, edit or exit: ").strip().lower()
+    user_action = input("Enter add, view, edit, complete or exit: ").strip().lower()
 
     match user_action:
         case "add":
-            todo = input("Enter a todo: ")
+            todo = input("Enter a todo: ") + "\n"
+
+            file = open(
+                "files/todos.txt", "r"
+            )  # relative path. for absolute paths on windows with backslashes, prefix it with r, to avoid the special characters and read it as a row string e.g open(r"C:\downloads\files\todos.txt", "r")
+            todos = file.readlines()
+            file.close()
+
             todos.append(todo)
+
+            file = open("files/todos.txt", "w")
+            file.writelines(todos)
+            file.close()
         case "view" | "display":  # Bitwise OR operator |
+            file = open("files/todos.txt", "r")
+            todos = file.readlines()
+            file.close()
+
             for index, todo in enumerate(todos):
-                row = f"{index} - {todo}"
+                row = f"{index + 1} - {todo}"
                 print(row)
         case "edit":
             for todo in todos:
@@ -56,6 +71,12 @@ while True:
             if edit_todo:
                 edited_todo = input(f"Update this todo - {edit_todo}: ")
                 todos[todo_index] = edited_todo
+                print(f"{edit_todo} has been updated to: {edited_todo}")
+        case "complete":
+            todo_index = int(input("Enter todo index to complete: ")) - 1
+            completed_todo = todos.pop(todo_index)
+            print(f"{completed_todo} has been completed")
+
         case "exit":
             break
         case _:  # execute this line when none of the case is matched

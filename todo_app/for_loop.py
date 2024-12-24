@@ -1,4 +1,4 @@
-meals = ["beans", "rice", "pizza"]
+meals = ["rice", "pizza", "beans"]
 
 for meal in meals:
     for char in meal:
@@ -7,6 +7,13 @@ for meal in meals:
             print()
 
 print("Done.")
+
+meals.sort()  # sort method doesn't return an output
+meals.sort(reverse=True)  # sort method to reverse in descending order
+
+for i, meal in enumerate(meals):
+    row = f"{i + 1}.{meal.capitalize()}"
+    print(row)
 
 # filenames = (
 #     "1.first.txt",
@@ -17,3 +24,15 @@ print("Done.")
 # for filename in filenames:
 #     filename = filename.replace(".", "-", 1)
 #     print(filename)
+
+contents = [
+    "All carots are to be sliced longitudinally",
+    "The carrots were reportedly sliced",
+    "Carrots are ready to be eaten.",
+]
+
+filenames = ["doc.txt", "reporter.txt", "presentation.txt"]
+
+for content, filename in zip(contents, filenames):
+    file = open(f"files/{filename}", "w")
+    file.write(content)
