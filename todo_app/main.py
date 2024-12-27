@@ -97,6 +97,18 @@ user_prompt = "Enter a todo: "  # type str
 #         case _:  # execute this line when none of the case is matched
 #             print("You entered a wrong command")
 
+
+def get_todos():
+    with open("files/todos.txt", "r") as file:  # using with-context manager
+        todos = file.readlines()
+    return todos
+
+
+def write_todos(filepath, todos_arg):
+    with open(filepath, "w") as file:
+        file.writelines(todos_arg)
+
+
 while True:
     user_action = input("Enter add, view, edit, complete or exit: ").strip().lower()
 
@@ -105,19 +117,16 @@ while True:
         "add"
     ):  # the in operator is also known as "containment test"
         todo = user_action[4:]  # list slicing
-        with open("files/todos.txt", "r") as file:  # using with-context manager
-            todos = file.readlines()
+        todos = get_todos()
 
         todos.append(todo + "\n")
 
-        with open("files/todos.txt", "w") as file:
-            file.writelines(todos)
+        write_todos("files/todos.txt", todos)
 
     elif user_action.startswith("view") or user_action.startswith(
         "show"
     ):  # Boolean operators = (and, or, not)
-        with open("files/todos.txt", "r") as file:
-            todos = file.readlines()
+        todos = get_todos()
 
         for index, todo in enumerate(todos):
             todo = todo.strip("\n")
@@ -126,8 +135,7 @@ while True:
 
     elif user_action.startswith("edit"):
         try:
-            with open("files/todos.txt", "r") as file:
-                todos = file.readlines()
+            todos = get_todos()
             for todo in todos:
                 print(todos.index(todo) + 1, todo.strip("\n"))
             todo_index = int(input("Enter todo index: ")) - 1
@@ -136,8 +144,8 @@ while True:
             if edit_todo:
                 edited_todo = input(f"Update this todo - {edit_todo}: ")
                 todos[todo_index] = edited_todo + "\n"
-                with open("files/todos.txt", "w") as file:
-                    file.writelines(todos)
+                write_todos("files/todos.txt", todos)
+
                 print(f"{edit_todo} has been updated to: {edited_todo}")
         except ValueError:
             print("Oops! You entered a wrong command!")
@@ -145,14 +153,15 @@ while True:
 
     elif user_action.startswith("complete"):
         try:
-            with open(
-                "files/todos.txt"
-            ) as file:  # by default, the open function assign the "r" value to the mode arg
-                todos = file.readlines()
+            # with open(
+            #     "files/todos.txt"
+            # ) as file:  # by default, the open function assign the "r" value to the mode arg
+            #     todos = file.readlines()
+            todos = get_todos()
             todo_index = int(input("Enter todo index to complete: ")) - 1
             completed_todo = todos.pop(todo_index)
-            with open("files/todos.txt", "w") as file:
-                file.writelines(todos)
+            write_todos("files/todos.txt", todos)
+
             print(f"{completed_todo.strip("\n")} has been completed")
         except Exception:
             print("Invalid todo index")
