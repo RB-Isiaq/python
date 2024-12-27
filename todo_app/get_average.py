@@ -21,7 +21,7 @@ def parse(feet_inches):
     feet = float(parts[0])
     inches = float(parts[1])
 
-    return feet, inches
+    return {"feet": feet, "inches": inches}
 
 
 def convert(feet, inches):
@@ -29,8 +29,12 @@ def convert(feet, inches):
     return meters
 
 
-f, i = parse(feet_inches)
-result = convert(f, i)
+parsed = parse(feet_inches)
+result = convert(parsed["feet"], parsed["inches"])
+
+print(
+    f"{parsed["feet"]} feet and {parsed["inches"]} inches is equal to {result} meters"
+)
 
 if result < 1:
     print("Kid is too small")
