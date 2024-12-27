@@ -1,3 +1,6 @@
+# from functions import get_todos, write_todos
+from modules import functions
+
 user_prompt = "Enter a todo: "  # type str
 # todo1 = input(user_prompt)
 # todo2 = input(user_prompt)
@@ -98,16 +101,13 @@ user_prompt = "Enter a todo: "  # type str
 #             print("You entered a wrong command")
 
 
-def get_todos():
-    with open("files/todos.txt", "r") as file:  # using with-context manager
-        todos = file.readlines()
-    return todos
+multiline_strings = """
+Principle of productivity:
+Managing your inflow
+Systemizing everything that repats
+"""
 
-
-def write_todos(filepath, todos_arg):
-    with open(filepath, "w") as file:
-        file.writelines(todos_arg)
-
+print(multiline_strings)
 
 while True:
     user_action = input("Enter add, view, edit, complete or exit: ").strip().lower()
@@ -117,16 +117,16 @@ while True:
         "add"
     ):  # the in operator is also known as "containment test"
         todo = user_action[4:]  # list slicing
-        todos = get_todos()
+        todos = functions.get_todos()
 
         todos.append(todo + "\n")
 
-        write_todos("files/todos.txt", todos)
+        functions.write_todos(todos)
 
     elif user_action.startswith("view") or user_action.startswith(
         "show"
     ):  # Boolean operators = (and, or, not)
-        todos = get_todos()
+        todos = functions.get_todos()
 
         for index, todo in enumerate(todos):
             todo = todo.strip("\n")
@@ -135,7 +135,7 @@ while True:
 
     elif user_action.startswith("edit"):
         try:
-            todos = get_todos()
+            todos = functions.get_todos()
             for todo in todos:
                 print(todos.index(todo) + 1, todo.strip("\n"))
             todo_index = int(input("Enter todo index: ")) - 1
@@ -144,7 +144,7 @@ while True:
             if edit_todo:
                 edited_todo = input(f"Update this todo - {edit_todo}: ")
                 todos[todo_index] = edited_todo + "\n"
-                write_todos("files/todos.txt", todos)
+                functions.write_todos(todos)
 
                 print(f"{edit_todo} has been updated to: {edited_todo}")
         except ValueError:
@@ -157,10 +157,10 @@ while True:
             #     "files/todos.txt"
             # ) as file:  # by default, the open function assign the "r" value to the mode arg
             #     todos = file.readlines()
-            todos = get_todos()
+            todos = functions.get_todos()
             todo_index = int(input("Enter todo index to complete: ")) - 1
             completed_todo = todos.pop(todo_index)
-            write_todos("files/todos.txt", todos)
+            functions.write_todos(todos)
 
             print(f"{completed_todo.strip("\n")} has been completed")
         except Exception:
