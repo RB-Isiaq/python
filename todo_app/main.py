@@ -44,21 +44,22 @@ while True:
         case "add":
             todo = input("Enter a todo: ") + "\n"
 
-            file = open(
-                "files/todos.txt", "r"
-            )  # relative path. for absolute paths on windows with backslashes, prefix it with r, to avoid the special characters and read it as a row string e.g open(r"C:\downloads\files\todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            # file = open(
+            #     "files/todos.txt", "r"
+            # )  # relative path. for absolute paths on windows with backslashes, prefix it with r, to avoid the special characters and read it as a row string e.g open(r"C:\downloads\files\todos.txt", "r")
+            # todos = file.readlines()
+            # file.close()
+
+            with open("files/todos.txt", "r") as file:  # using with-context manager
+                todos = file.readlines()
 
             todos.append(todo)
 
-            file = open("files/todos.txt", "w")
-            file.writelines(todos)
-            file.close()
+            with open("files/todos.txt", "w") as file:
+                file.writelines(todos)
         case "view" | "display":  # Bitwise OR operator |
-            file = open("files/todos.txt", "r")
-            todos = file.readlines()
-            file.close()
+            with open("files/todos.txt", "r") as file:
+                todos = file.readlines()
 
             # new_todos = [item.strip("\n") for item in todos]  # List comprehension
 
@@ -67,18 +68,29 @@ while True:
                 row = f"{index + 1} - {todo}"
                 print(row)
         case "edit":
+            with open("files/todos.txt", "r") as file:
+                todos = file.readlines()
             for todo in todos:
-                print(todos.index(todo) + 1, todo)
+                print(todos.index(todo) + 1, todo.strip("\n"))
             todo_index = int(input("Enter todo index: ")) - 1
             edit_todo = todos[todo_index]
+
             if edit_todo:
                 edited_todo = input(f"Update this todo - {edit_todo}: ")
-                todos[todo_index] = edited_todo
+                todos[todo_index] = edited_todo + "\n"
+                with open("files/todos.txt", "w") as file:
+                    file.writelines(todos)
                 print(f"{edit_todo} has been updated to: {edited_todo}")
         case "complete":
+            with open(
+                "files/todos.txt"
+            ) as file:  # by default, the open function assign the "r" value to the mode arg
+                todos = file.readlines()
             todo_index = int(input("Enter todo index to complete: ")) - 1
             completed_todo = todos.pop(todo_index)
-            print(f"{completed_todo} has been completed")
+            with open("files/todos.txt", "w") as file:
+                file.writelines(todos)
+            print(f"{completed_todo.strip("\n")} has been completed")
 
         case "exit":
             break

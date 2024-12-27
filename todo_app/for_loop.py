@@ -47,6 +47,8 @@ meals = ["rice", "pizza", "beans"]
 
 filenames = ["1.doc", "2.reporter", "3.presentation"]
 
-filenames = [filename.replace(".", "-") + ".txt" for filename in filenames]
+filenames = [
+    filename.replace(".", "-") + ".txt" for filename in filenames
+]  # list comprehension
 
 print(filenames)
