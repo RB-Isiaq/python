@@ -12,3 +12,9 @@ def write_todos(todos_arg, filepath="files/todos.txt"):
     """Write and save todo items to a text file."""
     with open(filepath, "w") as file:
         file.writelines(todos_arg)
+
+
+if (
+    __name__ == "__main__"
+):  # This will only run when this file is executed, and not when imported in another file.
+    print(get_todos())
